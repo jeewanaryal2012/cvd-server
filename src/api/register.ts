@@ -57,7 +57,7 @@ class Register {
     createAccount(rs) {
         let accountData = {
             userId: rs.userId,
-            headline: 'dummy',
+            headline: '',
             description: '',
             regionStates: '',
             regionCities: '',
@@ -67,19 +67,7 @@ class Register {
             contactPhone: '',
             contactWebsite: ''
         };
-
         account.setAccount(accountData);
-        /*
-        accountEntity.headline = req.body.headline;
-            accountEntity.description = req.body.description;
-            accountEntity.regionStates = req.body.regionStates;
-            accountEntity.regionCities = req.body.regionCities;
-            accountEntity.imageProfile = req.body.;
-            accountEntity.imageSlider = req.body.;
-            accountEntity.contactEmail = req.body.;
-            accountEntity.contactPhone = req.body.;
-            accountEntity.contactWebsite = req.body.;
-        */
     }
 }
 

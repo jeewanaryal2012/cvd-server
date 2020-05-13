@@ -14,29 +14,18 @@ class Login {
     doLogin(req, res) {
         //console.log('test');
         dbConnect.connect().then(con => {
-            let user = new Users();
-            console.log('connected ....', process.env.FOO);
-            user.firstName = 'Jeewan000';
-            user.lastName = 'Aryal2';
-            user.email = 'jeewan2@gmail.com';
-            user.phone = '972-251-3155';
-            user.password = 'pass';
             let userRepository = con[0].getRepository(Users);
-            // userRepository.find({ email: 'jeewan@gmail.com' }).then(data => {
-            //     console.log(data);
-            // });
-
-            userRepository.find({ email: 'jeewan@gmail.com' }).then(data => {
+            userRepository.find({ email: req.body.email }).then(data => {
                 this.log.info(data);
                 if (data.length > 0) {
                     bcrypt.compare(req.body.password, data[0].password, (err, match) => {
                         if (match) {
-                            let ts = Date.now();
                             const user = { username: req.body.username, password: req.body.password };
                             const accessToken = jwt.sign(user, process.env.AUTH_KEY);
                             res.json({
                                 result: false,
-                                message: 'password matches'
+                                message: 'password matches',
+                                accessToken
                             });
                         } else {
                             res.json([{

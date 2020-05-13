@@ -23,7 +23,7 @@ class Login {
                             const user = { username: req.body.username, password: req.body.password };
                             const accessToken = jwt.sign(user, process.env.AUTH_KEY);
                             res.json({
-                                result: false,
+                                result: true,
                                 message: 'password matches',
                                 accessToken
                             });

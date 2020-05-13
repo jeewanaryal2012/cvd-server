@@ -1,5 +1,5 @@
 import app from "./routes/routes";
-const port = 4040;
-app.listen(port, function () {
-    console.log('Express server listening on port: ' + port);
+const PORT = process.env.PORT || 4040;
+app.listen(PORT, function () {
+    console.log('Express server listening on port: ' + PORT);
 });

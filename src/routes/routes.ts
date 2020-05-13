@@ -27,10 +27,10 @@ class JRoutes {
     private routes(): void {
         this.router.get('/', (req: Request, res: Response) => {
             console.log(process.env.PWD);
-            //res.sendFile(process.env.PWD + '/dist/uicomponent/index.html');
-            res.json({
-            	message: 'Home page'
-            });
+            res.sendFile(process.env.PWD + '/dist/uicomponent/index.html');
+            // res.json({
+            // 	message: 'Home page'
+            // });
         });
         this.router.get('/login', (req: Request, res: Response) => {
             login.doLogin(req, res);

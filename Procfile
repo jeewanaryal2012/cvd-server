@@ -1,1 +1,1 @@
-web:server/src/server.ts
+web:npm run watch

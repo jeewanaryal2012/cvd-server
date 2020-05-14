@@ -29,7 +29,8 @@ export class CorsConfig {
         this.router.use(cors(this.options));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use('/uploads', express.static(process.env.PWD + '/uploads'));
+        //this.app.use('/uploads', express.static(process.env.PWD + '/uploads'));
+        this.app.use('/tmp', express.static(process.env.PWD + '/tmp'));
         this.app.use('/', express.static(process.env.PWD + '/dist'));
         this.app.use('/', this.router);
     }

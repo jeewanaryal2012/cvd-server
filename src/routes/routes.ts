@@ -33,6 +33,13 @@ class JRoutes {
         this.router.get('/account', (req: Request, res: Response) => {
             account.saveAccount(req, res);
         });
+        this.router.get('/test', (req: Request, res: Response) => {
+            res.json([
+                { message: 'test' },
+                { env: 'ENV' },
+                { db: '.env created for DB' }
+            ]);
+        });
         this.app.use('/', this.router);
     }
 

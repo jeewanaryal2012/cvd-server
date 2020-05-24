@@ -14,6 +14,7 @@ class Login {
     doLogin(req, res) {
         //console.log('test');
         dbConnect.connect().then(con => {
+            //this.log.info(con);
             let userRepository = con[0].getRepository(Users);
             userRepository.find({ email: req.body.email }).then(data => {
                 this.log.info(data);

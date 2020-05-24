@@ -905,8 +905,10 @@ const env = 'local';
 class Endpoints {
 }
 Endpoints.endpoints = {
-    login: env === 'local' ? 'http://localhost:4040/login' : '/local',
-    register: env === 'local' ? 'http://localhost:4040/register' : '/register'
+    // login: env === 'local' ? 'http://localhost:4040/login' : 'https://codiv-azure-app.azurewebsites.net/login',
+    // register: env === 'local' ? 'http://localhost:4040/register' : '/register'
+    login: 'https://codiv-azure-app.azurewebsites.net/login',
+    register: 'https://codiv-azure-app.azurewebsites.net/register'
 };
 
 

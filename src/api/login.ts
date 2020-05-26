@@ -17,16 +17,24 @@ class Login {
             //this.log.info(con);
             let userRepository = con[0].getRepository(Users);
             userRepository.find({ email: req.body.email }).then(data => {
-                this.log.info(data);
+
                 if (data.length > 0) {
                     bcrypt.compare(req.body.password, data[0].password, (err, match) => {
                         if (match) {
                             const user = { username: req.body.username, password: req.body.password };
                             const accessToken = jwt.sign(user, process.env.AUTH_KEY);
+                            this.log.info(data);
                             res.json({
                                 result: true,
-                                message: 'password matches',
-                                accessToken
+                                message: 'password matches 123',
+                                accessToken,
+                                user: {
+                                    firstName: data[0].firstName,
+                                    lastName: data[0].lastName,
+                                    email: data[0].email,
+                                    phone: data[0].phone,
+                                    profilePicture: ''
+                                }
                             });
                         } else {
                             res.json([{

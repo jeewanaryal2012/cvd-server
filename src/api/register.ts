@@ -26,18 +26,18 @@ class Register {
             users.password = bcrypt.hashSync(req.body.password, 10);
             let userRepository = con[0].getRepository(UsersEntity);
             userRepository.find({ email: req.body.email }).then(data => {
-                if (data.length <= 0) {
+                if (data.length === 0) {
                     con[0].manager.save(users).then(rs => {
                         this.createAccount(rs);
                         res.json([{
                             result: true,
-                            message: 'Registration success'
+                            message: 'Registration success. Now, you can login with your email and password'
                         }]);
                     });
                 } else {
                     res.json([{
                         result: false,
-                        message: 'Registration unsuccess'
+                        message: 'Registration unsuccess. User already exixts.'
                     }]);
                 }
             }, err => {

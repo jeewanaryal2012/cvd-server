@@ -8,12 +8,20 @@ import { Logger } from "tslog";
 import * as jwt from 'jsonwebtoken';
 import UsersEntity from '../entities/users.entity';
 import account from './account';
+import * as SendGrid from 'sendgrid';
+
+export class SendGridMail extends SendGrid.mail.Mail { }
+export class SendGridEmail extends SendGrid.mail.Email { }
+export class SendGridContent extends SendGrid.mail.Content { }
 
 class Register {
     log: any;
     //account: Account;
+    private sendGrid;
+    private sendgridApiKey: string
     constructor() {
         this.log = new Logger();
+        this.sendGrid = SendGrid('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');
     }
 
     doRegister(req: Request, res: Response) {
@@ -29,6 +37,14 @@ class Register {
                 if (data.length === 0) {
                     con[0].manager.save(users).then(rs => {
                         this.createAccount(rs);
+                        let mail = new SendGridMail(
+                            new SendGridEmail('jeewanaryal@gmail.com'),
+                            'Sending with SendGrid is Fun',
+                            new SendGridEmail('jeewanaryal@gmail.com'),
+                            new SendGridContent('text/html', '<h1>This is h1 tag</h1>'));
+                        this.send(mail).then(mailRes => {
+                            this.log.info(mailRes);
+                        });
                         res.json([{
                             result: true,
                             message: 'Registration success. Now, you can login with your email and password'
@@ -69,6 +85,18 @@ class Register {
         };
         account.setAccount(accountData);
     }
+
+    send(mail: SendGridMail): Promise<any> {
+
+        let request = this.sendGrid.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            body: mail.toJSON()
+        });
+
+        return this.sendGrid.API(request);
+    }
+
 }
 
 export default new Register();
